@@ -13,6 +13,7 @@ export type PostMetadata = {
   image?: string;
   publishedAt?: string;
   slug: string;
+  category?: string;   // <-- Added category here
 };
 
 export async function getPostBySlug(
@@ -37,7 +38,7 @@ export async function getPosts(
   const files = fs.readdirSync(rootDirectory);
 
   const posts = files
-    .filter((file) => file.endsWith(".mdx")) // might have .DS_Store?
+    .filter((file) => file.endsWith(".mdx")) // exclude non-mdx files
     .map((file) => getPostMetaData(rootDirectory, file))
     .sort(
       (a, b) =>
