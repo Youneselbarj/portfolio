@@ -1,18 +1,12 @@
-import dotenv from "dotenv";
-dotenv.config({ path: ".env.local" });
+// Removed dotenv import and config since no env vars are used now
 
 import { DocumentInterface } from "@langchain/core/documents";
-import { Redis } from "@upstash/redis";
 import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-// Removed: import { getEmbeddingsCollection, getVectorStore } from "../src/lib/vectordb";
 
 async function generateEmbeddings() {
-  // Removed vectorStore usage and embeddings collection
-  // const vectorStore = await getVectorStore();
-  // (await getEmbeddingsCollection()).deleteMany({});
-  (await Redis.fromEnv()).flushdb();
+  // No external services or env vars used here
 
   const routeLoader = new DirectoryLoader(
     "src/app",
@@ -69,12 +63,9 @@ async function generateEmbeddings() {
   const postSplitter = RecursiveCharacterTextSplitter.fromLanguage("markdown");
   const splitPosts = await postSplitter.splitDocuments(posts);
 
-  // Disabled adding to vectorStore since it no longer exists
-  // await vectorStore.addDocuments(splitRoutes);
-  // await vectorStore.addDocuments(splitData);
-  // await vectorStore.addDocuments(splitPosts);
+  // No vector store, Redis, Astra DB, or OpenAI calls here
 
-  console.log("Embeddings processing completed. Vector storage disabled.");
+  console.log("Embeddings processing completed (no external services used).");
 }
 
 generateEmbeddings();
