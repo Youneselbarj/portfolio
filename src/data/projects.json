@@ -1,0 +1,26 @@
+{
+  "projects": [
+    {
+      "name": "Projet de Fin d'Études - PFE",
+      "href": "https://drive.google.com/file/d/1vU4ZB5eULj-OuahxEfdreZyOMcfUhqj8/view?usp=drive_link",
+      "title": "Conception d’un environnement SIEM avec Splunk",
+      "logo": "/iprc_logo.jpeg",
+      "start": "Mai 2025",
+      "end": "Mai 2025",
+      "description": "Configuration et déploiement de Splunk pour centraliser et visualiser les logs de sécurité, avec mise en place de Sysmon, pfSense, Suricata et création d’un environnement complet de supervision.",
+      "tags": [
+        "SIEM",
+        "cybersecurity",
+        "Splunk"
+      ],
+      "links": [
+        {
+          "name": "Rapport PFE",
+          "href": "https://drive.google.com/file/d/1vU4ZB5eULj-OuahxEfdreZyOMcfUhqj8/view?usp=drive_link",
+          "icon": "globe"
+        }
+      ]
+    }
+  ]
+}
+

@@ -1,0 +1,112 @@
+---
+title: "Understanding the HTTP Protocol"
+publishedAt: "2024-12-01"
+category: "Web Security"
+summary: "Exploring HTTP fundamentals: stateless protocol, versions, communication flow."
+author: "Younes Elbarj"
+tags: ["HTTP", "Networking", "Web Security", "Protocols"]
+---
+
+# Understanding the HTTP Protocol
+
+HTTP (**HyperText Transfer Protocol**) is the foundation of communication on the web.  
+It follows a **client–server model**, where:
+
+- The **client** (usually a web browser) sends a request.  
+- The **server** processes the request and responds — often with an HTML page.  
+
+By default, HTTP runs on **port 80**, though both clients and servers can be configured to use different ports.
+
+
+
+## Stateless Nature of HTTP
+
+One of HTTP’s core characteristics is that it is **stateless**.  
+This means:
+
+- Each request is treated independently.  
+- The server does not “remember” previous requests, even if they come from the same client.  
+
+In other words, if you refresh a page multiple times, the server will handle each request as if it were completely new.
+
+
+## Evolution of HTTP Versions
+
+We currently use **HTTP/2**, which is a significant upgrade over HTTP/1.0 and HTTP/1.1.  
+Here are some key differences:
+
+- **Binary vs Textual**: HTTP/2 is binary, making it faster and less error-prone.  
+- **Multiplexing**: Multiple requests can be handled over a single connection. In HTTP/1.x, requests are blocked and sequential.  
+- **Header Compression**: HTTP/2 reduces overhead with efficient header compression.  
+- **Server Push**: Servers can proactively “push” resources to clients without waiting for a request.  
+
+
+## HTTP Request Methods
+
+HTTP defines different **methods** for how a client communicates with a server.  
+The most commonly used are:
+
+- `GET` – Retrieve data from a server.  
+- `POST` – Submit data to a server.  
+
+**Key difference**:  
+`GET` appends data in the URL (visible, cached, and limited in size), while `POST` sends data in the request body (hidden, more secure for sensitive operations).
+
+---
+
+## Structure of an HTTP Request
+
+An HTTP request looks like this:
+
+```http
+GET / HTTP/1.1
+Host: yahoo.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:53.0) Gecko/20100101 Firefox/53.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+````
+
+## Structure of an HTTP Response
+
+When a server replies, it sends an HTTP response:
+````
+HTTP/1.1 200 OK
+Date: Sat, 10 Jun 2017 05:17:18 GMT
+Set-Cookie: autorf=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=0; path=/; domain=in.yahoo.com
+Content-Type: text/html; charset=UTF-8
+Server: ATS
+Expires: -1
+Content-Length: 477864
+````
+## Key Response Elements
+
+- **1xx – Informational** → Example: `100 Continue`  
+- **2xx – Success** → Examples: `200 OK`, `204 No Content`  
+- **3xx – Redirection** → Examples: `301 Moved Permanently`, `304 Not Modified`  
+- **4xx – Client Errors** → Examples: `403 Forbidden`, `404 Not Found`  
+- **5xx – Server Errors** → Examples: `500 Internal Server Error`, `503 Service Unavailable`  
+
+
+**Key HTTP Response Headers**
+
+- **Date** → Indicates when the response was generated.  
+- **Set-Cookie** → Stores session-related values for the client.  
+- **Server** → Reveals information about the web server (useful in reconnaissance).  
+- **Content-Length** → Size of the response body in bytes.  
+
+
+
+## Conclusion
+
+Understanding the **HTTP protocol** is essential for anyone working with the web — whether you’re a developer, a penetration tester, or simply curious about how the internet works.  
+
+We explored how HTTP functions as a **stateless client–server protocol**, the evolution from **HTTP/1.x to HTTP/2**, the difference between **GET and POST**, the structure of **requests and responses**, and the importance of **headers and status codes**.  
+
+By mastering these fundamentals, you gain not only a clearer picture of how browsers and servers communicate, but also the knowledge to **build more secure applications** and **detect potential vulnerabilities** during security assessments.  
+
+Stay tuned for future deep dives into **HTTPS, TLS, and advanced web security concepts**.  
+**-Younes**
+

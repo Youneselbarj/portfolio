@@ -1,0 +1,40 @@
+{
+  "education": [
+    {
+      "name": "Ecole Marocaine des Sciences de l'ingénieur",
+      "href": "https://emsi.ma/",
+      "title": "Étudiant en Cycle  Ingénierie Informatique et Réseaux",
+      "logo": "/emsi_logo.png",
+      "start": "sep 2025",
+      "end": "en cours"
+    },
+    {
+      "name": "Cités des Métiers et des Compétences",
+      "href": "http://cmc.ac.ma/fr",
+      "title": "Technicien spécialisé en cybersécurité",
+      "logo": "/cmc_logo.png",
+      "start": "Sep 2023",
+      "end": "jul 2025",
+      "description": [
+        "une base solide en informatique (réseaux, systèmes, programmation).",
+        "Formé à la cybersécurité défensive (SIEM, analyse des logs, détection d’intrusions) et à la cybersécurité offensive (tests d’intrusion, CTF, red teaming).",
+        "Passionné par les environnements techniques, rigoureux et toujours en veille sur les dernières vulnérabilités et techniques d’attaque."
+      ],
+      "links": [
+        {
+          "name": "Projet de Fin d'Études",
+          "href": "https://drive.google.com/file/d/1vU4ZB5eULj-OuahxEfdreZyOMcfUhqj8/view?usp=drive_link",
+          "icon": "globe"
+        }
+      ]
+    },
+    {
+      "name": "Faculté des sciences Aïn Chock - Casablanca",
+      "href": "https://fsac.univh2c.ma/front/index.html",
+      "title": "Bac +1",
+      "logo": "/fsac_logo.png",
+      "start": "sep 2022",
+      "end": "jul 2023"
+    }
+  ]
+}

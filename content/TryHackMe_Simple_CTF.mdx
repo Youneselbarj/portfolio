@@ -1,0 +1,217 @@
+---
+title: "TryHackMe - Simple CTF Walkthrough"
+summary: "Step-by-step walkthrough of the Simple CTF room on TryHackMe"
+category: "CTF"
+publishedAt: "2024-10-7"
+author: "Younes Elbarj"
+tags: ["CTF", "TryHackMe", "Simple CTF", "Walkthrough"]
+---
+#  TryHackMe - Simple CTF Challenge Overview
+
+Today we tackle the **Simple CTF** challenge on TryHackMe, designed for beginners to practice penetration testing skills. While the machine is classified as **easy**, careful attention to details during enumeration is essential to uncover all flags.
+
+---
+
+## Challenge Details
+
+- **Difficulty Level:** Easy  
+- **Target IP:** 10.10.33.135 
+- **Flags:** 2 (User flag & Root flag)  
+
+---
+
+## Penetration Testing Methodology
+
+The methodology for this challenge follows standard penetration testing practices:
+
+1. **Network Scanning**
+   - Discover open ports and services.
+   - Tools: Nmap  
+
+2. **Enumeration**
+   - Directory brute-forcing.
+   - Webpage content analysis.
+   - Searching for known vulnerabilities or exploits.
+
+3. **Exploitation**
+   - Running an SQL Injection exploit to extract credentials.
+   - Enumerating the password.
+   - Logging in as the `Mitch` user via SSH.
+   - Retrieving the user flag.
+
+4. **Privilege Escalation**
+   - Checking available sudo permissions.
+   - Exploiting vim to gain root access.
+   - Retrieving the root flag.
+
+---
+
+## Walkthrough Approach
+
+After starting the target machine on TryHackMe, the machine will be assigned an IP visible on the challenge page. Our goal is to:
+
+- Enumerate open services and hidden resources.
+- Exploit vulnerabilities to obtain credentials.
+- Achieve a user-level shell and retrieve the **user flag**.
+- Escalate privileges to root and capture the **root flag**.
+- Answer the embedded questions for full completion.
+
+## 1️⃣ Network Scanning (Extended)
+
+To gather more detailed information about the target machine, including service versions and running scripts, we perform an extended Nmap scan:
+
+```bash
+nmap -sC -sV -oN nmap.txt 10.10.33.135
+```
+**Scan Results Summary:**  
+
+After running the Nmap scan, we discovered **three active services** on the target machine:
+
+- **Port 21 → FTP (File Transfer Protocol)**  
+- **Port 80 → HTTP (Web Server)**  
+- **Port 2222 → SSH (Secure Shell)**  
+
+These services provide the initial points of entry for enumeration and exploitation.
+
+---
+
+###  Questions Answered
+
+**Q1. How many services are running below port 1000?**  
+- **Answer:** 2 (FTP and HTTP)
+
+**Q2. Which service is running on the highest port?**  
+- **Answer:** SSH (Port 2222)
+![Simple CTF  ](/blog/Simple_CTF/image1.png)
+
+## 2️⃣ Enumeration
+
+After identifying the open services, we move on to **enumeration** to gather more information about potential entry points.
+
+The Nmap scan revealed that the **FTP service allows anonymous login**. Connecting as an anonymous user, we discovered a **note file**. While it didn’t give the flag directly, it served as a small hint for further exploration.
+
+### 🔹 Directory Enumeration with Gobuster
+
+Since the homepage offered no further information, we used **Gobuster** to discover hidden directories on the web server:
+
+```bash
+gobuster dir -u http://10.10.33.135/ -w /usr/share/wordlists/dirb/common.txt
+```
+
+
+![Simple CTF  ](/blog/Simple_CTF/image2.png)
+
+### 🔹 CMS Discovery
+
+By performing directory brute-forcing with **Gobuster**, we discovered two interesting results:
+
+- **`robots.txt`** → Standard file giving hints about restricted areas.  
+- **`/simple/` directory** → Upon visiting this directory in a web browser, we found that the target machine is running **CMS Made Simple**, a popular content management system.
+
+ URL to access the CMS: 
+```bash
+http://10.10.146.189/simple/
+```
+![Simple CTF  ](/blog/Simple_CTF/image3.png)
+
+### 🔹 Robots.txt Analysis
+
+After exploring the CMS Made Simple directory, we looked for additional clues. Since there were no new insights, we examined the **`robots.txt`** file discovered during the Gobuster scan.
+
+Opening the file revealed a **disallowed entry**:
+
+![Simple CTF  ](/blog/Simple_CTF/image4.png) 
+
+We tried opening this particular directory. But we found and 404 error as shown in the image below.
+
+![Simple CTF  ](/blog/Simple_CTF/image5.png)
+
+### 🔹 Exploit Search with SearchSploit
+
+Next, we focused on **CMS Made Simple** to find potential vulnerabilities. Using **SearchSploit**, we searched for known exploits:
+
+```bash
+searchsploit cms made simple
+```
+![Simple CTF  ](/blog/Simple_CTF/image6.png)
+
+```bash
+searchsploit -m 46635
+```
+![Simple CTF  ](/blog/Simple_CTF/image7.png)
+
+## 3️⃣ Exploitation
+
+### 🔹 Vulnerability Details
+
+Before exploiting the CMS, it’s important to note:
+
+- **CVE used:** `CVE-2019-9053`  
+- **Vulnerability type:** SQL Injection (sqli)  
+
+This vulnerability allows unauthorized extraction of sensitive data from the CMS database.
+
+---
+
+### 🔹 Preparing the Exploit
+
+The SQL injection exploit requires some Python dependencies to run. We ensured all prerequisites were installed using `pip`.  
+
+After the setup, we executed the exploit targeting the `/simple/` directory of the CMS:
+
+```bash
+python 46635.py -u http://10.10.33.135/simple/ --crack -w /usr/share/wordlists/rockyou.txt
+```
+![Simple CTF  ](/blog/Simple_CTF/image8.png)
+
+### 🔹 Retrieving Credentials
+
+The SQL injection exploit iteratively tested each character of the database entries, including **salt, username, email, and password**.  
+
+After completing the process, the **password for the CMS user** was successfully recovered:
+
+![Simple CTF  ](/blog/Simple_CTF/image9.png)
+
+## 4️⃣ Initial Foothold
+
+### 🔹 SSH Login
+
+From the previous steps, we identified that **port 2222** was running the **SSH service**. Using the credentials retrieved from the CMS exploit, we could log in as the user `mitch`:
+
+```bash
+ssh mitch@10.10.33.135 -p 2222
+ls
+cat user.txt
+```
+![Simple CTF  ](/blog/Simple_CTF/image10.png)
+
+## 5️⃣ Privilege Escalation
+###  🔹 Sudo Privileges
+
+Listing binaries that mitch can execute with elevated rights:
+```bash
+sudo -l
+```
+
+We discovered that vim could be run with sudo permissions.
+
+Q7. Other users in /home: sunbath
+Q8. Tool to spawn a privileged shell: vim
+
+###  🔹 Getting Root Access
+
+Spawn a root shell using vim and verify privileges:
+```bash
+sudo vim -c ":!/bin/sh"
+id
+cat /root/root.txt
+```
+
+![Simple CTF  ](/blog/Simple_CTF/image11.png)
+
+##  Conclusion
+
+Hope you enjoyed this **TryHackMe Simple CTF write-up**!  
+Till next time, stay curious and keep hacking. 😎🔥💨  
+
+-Younes

@@ -1,0 +1,21 @@
+{
+  "career": [
+    {
+      "name": "IPRC an HPS Company - Casablanca",
+      "href": "",
+      "title": "Analyste en Cybersécurité (Stage PFE)",
+      "logo": "/iprc_logo.jpeg",
+      "start": "Mai 2025",
+      "end": "Mai 2025",
+      "description": [
+        "Conception d’un environnement SIEM avec Splunk",
+        "Configuration et déploiement de Splunk pour la centralisation et la visualisation des logs de sécurité",
+        "Mise en place de Sysmon pour la collecte d’événements Windows à des fins d’analyse comportementale",
+        "Déploiement du pare-feu pfSense pour la gestion des flux réseau",
+        "Intégration de Suricata en tant que système de détection/prévention des intrusions (IDS/IPS)",
+        "Création d’un environnement complet de supervision pour l’analyse et la détection des incidents de sécurité"
+      ]
+    }
+  ]
+}
+

@@ -1,0 +1,19 @@
+{
+  "socials": [
+    {
+      "name": "LinkedIn",
+      "href": "https://www.linkedin.com/in/younes-elbarj/",
+      "icon": "linkedin"
+    },
+    {
+      "name": "GitHub",
+      "href": "https://github.com/Youneselbarj",
+      "icon": "github"
+    },
+    {
+      "name": "Email",
+      "href": "mailto:younselbarj00@gmail.com",
+      "icon": "mail"
+    }
+  ]
+}
