@@ -20,7 +20,34 @@
           "icon": "globe"
         }
       ]
+    },
+    {
+      "name": "Active Directory Red Teaming",
+      "href": "https://drive.google.com/file/d/13B10Bg0dVd1owZa8osfeptbBoK3tWoot/view?usp=sharing",
+      "title": "Chaîne d’attaque complète sur un domaine Windows",
+      "logo": "/ad_redteam_logo.jpeg",
+      "start": "2025",
+      "end": "2025",
+      "description": "Un travail pratique visant à comprendre en profondeur la compromission d’un domaine Windows, en mettant en œuvre une véritable chaîne d’attaque et en utilisant des outils Red Team pour analyser chaque étape de l’intrusion.",
+      "tags": [
+        "Active Directory",
+        "Red Teaming",
+        "Pentesting",
+        "Windows Security"
+      ],
+      "links": [
+        {
+          "name": "Rapport Active Directory",
+          "href": "https://drive.google.com/file/d/13B10Bg0dVd1owZa8osfeptbBoK3tWoot/view?usp=sharing",
+          "icon": "globe"
+        }
+      ],
+      "objectives": [
+        "Exploiter les faiblesses LLMNR et réaliser un SMB Relay",
+        "Cartographier les privilèges grâce à BloodHound et CrackMapExec",
+        "Mettre en œuvre Pass-The-Hash, Kerberoasting et Token Impersonation",
+        "Analyser les mécanismes défensifs comme SMB Signing et la désactivation de LLMNR"
+      ]
     }
   ]
 }
-
